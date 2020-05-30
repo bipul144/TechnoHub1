@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/low_poly_banner_design_2203"
+    tools:context=".BasicDetilesActivity"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/BasicDetails"
+        android:textColor="#285C0D"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_editbuttonview"
+        android:text="@string/SignUpLink2"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+    <EditText
+        android:id="@+id/InfoName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="10dp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/InfoEmail"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <EditText
+        android:id="@+id/InfoEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/LoginEmailHint"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/txtInfoBranch"
+        app:layout_constraintEnd_toEndOf="@+id/InfoName"
+        app:layout_constraintStart_toStartOf="@+id/InfoName"
+        app:layout_constraintTop_toBottomOf="@+id/InfoName" />
+
+    <EditText
+        android:id="@+id/InfoContact"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_call"
+        android:drawablePadding="10dp"
+        android:hint="@string/SignUpContact"
+        android:inputType="text|phone"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/ProjectInfo"
+        app:layout_constraintEnd_toEndOf="@+id/txtInfoField"
+        app:layout_constraintStart_toStartOf="@+id/txtInfoField"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoField" />
+
+    <EditText
+        android:id="@+id/ProjectInfo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_work"
+        android:drawablePadding="10dp"
+        android:hint="@string/LinkofTheProject"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="@+id/InfoContact"
+        app:layout_constraintStart_toStartOf="@+id/InfoContact"
+        app:layout_constraintTop_toBottomOf="@+id/InfoContact" />
+
+    <TextView
+        android:id="@+id/txtInfoBranch"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_call_split"
+        android:drawablePadding="10dp"
+        android:hint="@string/SignUpBranch"
+        android:inputType="textVisiblePassword"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/txtInfoSemester"
+        app:layout_constraintEnd_toEndOf="@+id/InfoEmail"
+        app:layout_constraintStart_toStartOf="@+id/InfoEmail"
+        app:layout_constraintTop_toBottomOf="@+id/InfoEmail" />
+
+    <TextView
+        android:id="@+id/txtInfoSemester"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_format_list_bulleted"
+        android:drawablePadding="10dp"
+        android:hint="@string/SignUpSemester"
+        android:inputType="textVisiblePassword"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/txtInfoField"
+        app:layout_constraintEnd_toEndOf="@+id/txtInfoBranch"
+        app:layout_constraintStart_toStartOf="@+id/txtInfoBranch"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoBranch" />
+
+    <TextView
+        android:id="@+id/txtInfoField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_golf_course"
+        android:drawablePadding="10dp"
+        android:hint="@string/SignUpField"
+        android:inputType="textVisiblePassword"
+        android:padding="10dp"
+        android:textColor="#285C0D"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/InfoContact"
+        app:layout_constraintEnd_toEndOf="@+id/txtInfoSemester"
+        app:layout_constraintStart_toStartOf="@+id/txtInfoSemester"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoSemester" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

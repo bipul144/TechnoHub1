@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TechnoHub</string>
+    <string name="LoginTitle">Welcome To TechnoHub</string>
+    <string name="LoginEmailHint">Email</string>
+    <string name="LoginPassword">Password</string>
+    <string name="LoginButton">LogIn</string>
+    <string name="LinkToSignUp">New Users Register ?</string>
+    <string name="SignUpName">UserName</string>
+    <string name="SignUpEmail">E-mail</string>
+    <string name="SignUpContact">Contact</string>
+    <string name="SignUpPassword">Password</string>
+    <string name="SignUpButton">Sign Up</string>
+    <string name="SignUpBranch">Branch</string>
+    <string name="SignUpSemester">Semester</string>
+    <string name="SignUpField">Field Of Interest</string>
+    <string name="BasicDetails">Member Info</string>
+    <string name="LinkofTheProject">Work Shop Done Till Now?</string>
+    <string name="SignUpLink2">Next</string>
+</resources>
