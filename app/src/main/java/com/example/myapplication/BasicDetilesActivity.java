@@ -15,13 +15,14 @@ import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class BasicDetilesActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String[] listBranch,listSemester,listField;
-    private EditText InfoName, InfoContact, InfoEmail, ProjectInfo;
+    private EditText InfoName, InfoContact, InfoEmail, ProjectInfo,edt_contact;
     private TextView txtInfoBranch, txtInfoSemester, txtInfoField;
     private Button btnInfo;
     private String Branch,Semester,Field;
@@ -32,8 +33,10 @@ public class BasicDetilesActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_detiles);
+        edt_contact = findViewById(R.id.edt_contact);
         InfoName = findViewById(R.id.InfoName);
         InfoEmail = findViewById(R.id.InfoEmail);
+        InfoEmail.setText(ParseUser.getCurrentUser().getEmail());
         InfoContact = findViewById(R.id.InfoContact);
         ProjectInfo = findViewById(R.id.ProjectInfo);
         txtInfoBranch = findViewById(R.id.txtInfoBranch);
@@ -44,9 +47,6 @@ public class BasicDetilesActivity extends AppCompatActivity implements View.OnCl
         txtInfoBranch.setOnClickListener(BasicDetilesActivity.this);
         txtInfoSemester.setOnClickListener(BasicDetilesActivity.this);
         txtInfoField.setOnClickListener(BasicDetilesActivity.this);
-
-
-
     }
 
     @Override
@@ -58,12 +58,14 @@ try {
         case R.id.btnInfo:
             final ParseObject users = new ParseObject("Member");
             users.put("Name", InfoName.getText().toString());
-            users.put("Email", InfoEmail.getText().toString());
-            users.put("Contact", Integer.parseInt(InfoContact.getText().toString()));
+            users.put("Email", ParseUser.getCurrentUser().getEmail());
+            users.put("Contact_6", Integer.parseInt(InfoContact.getText().toString()));
+            users.put("Contact_4", Integer.parseInt(edt_contact.getText().toString()));
             users.put("Workshop", ProjectInfo.getText().toString());
             users.put("Branch", Branch);
             users.put("Semester", Semester);
             users.put("Interest", Field);
+
             final ProgressDialog progressDialog = new ProgressDialog(BasicDetilesActivity.this);
             progressDialog.setMessage("Please Wait ...");
             progressDialog.show();
@@ -72,18 +74,19 @@ try {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        Message(users.get("Name") + " Your Details Are Fetched Successfully", "S");
-                        parseID=users.getObjectId();
-                        Intent intent = new Intent(BasicDetilesActivity.this, signupActivity.class);
+                        Message(users.get("Name") + "   Your Details Are Fetched Successfully", "S");
+                        Message(parseID,"I");
+
+                        Intent intent = new Intent(BasicDetilesActivity.this, MainInterfaceActivity.class);
                         startActivity(intent);
                     } else {
                         Message(e.getMessage(), "E");
                     }
                     progressDialog.dismiss();
                     progressDialog.setCancelable(false);
+
                 }
             });
-
             break;
         case R.id.txtInfoBranch:
             listBranch = new String[]{"Mechanical", "Civil", "Electrical",
@@ -166,6 +169,5 @@ try {
         }
 
     }
-
 
 }

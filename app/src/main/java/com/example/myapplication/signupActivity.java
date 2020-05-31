@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -65,13 +67,12 @@ public class signupActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void done(ParseException e) {
                                 if (e == null) {
-                                    Message(parseUser.getUsername() + " Welcome To TechnoHub", "S");
-                                    moveToActivity();
-                                    Message("Please Login Again", "I");
 
+                                    alertDisplayer("Account Created Successfully !","Please Verify Your E-mail Before Login",false);
 
                                 } else {
-                                    Message(e.getMessage(), "E");
+
+                                    alertDisplayer("Account Creation failed !","Account Could not be created"+" : "+e.getMessage(),true);
                                 }
                                 progressDialog.setCancelable(false);
                                 progressDialog.dismiss();
@@ -95,6 +96,25 @@ public class signupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+    private void alertDisplayer(String title,String message,final boolean error){
+        AlertDialog.Builder builder = new AlertDialog.Builder(signupActivity.this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                if(!error){
+                    Intent intent = new Intent(signupActivity.this,BasicDetilesActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK );
+                    startActivity(intent);
+                }
+            }
+        });
+        AlertDialog Ok = builder.create();
+        Ok.show();
+        Ok.setCancelable(false);
+    }
 
 
 
@@ -112,9 +132,6 @@ public class signupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-    public void moveToActivity(){
-        Intent intent = new Intent(signupActivity.this,MainActivity.class);
-        startActivity(intent);
-    }
+
 }
 

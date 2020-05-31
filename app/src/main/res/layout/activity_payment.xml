@@ -31,8 +31,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/profileImg"
+                <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="50dp"
@@ -79,27 +78,29 @@
 
             <EditText
                 android:id="@+id/UserIdPay"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="User ID"
+                android:hint="User ID"
+                android:textColorHint="#285C0D"
                 android:textColor="#285C0D"
-                android:textSize="20dp"
-                android:paddingRight="110dp"/>
+                android:inputType="textEmailAddress"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/UserNamePay"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:paddingRight="70dp"
-                android:text="User Name"
+                android:hint="User Name"
+                android:textColorHint="#285C0D"
                 android:textColor="#285C0D"
                 android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/amount"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="Amount"

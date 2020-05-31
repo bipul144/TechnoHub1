@@ -32,6 +32,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        btn_PaymentPay = findViewById(R.id.btn_PaymentPay);
+        btn_PaymentPay.setOnClickListener(this);
+        btn_HomePay = findViewById(R.id.btn_HomePay);
+        btn_HomePay.setOnClickListener(this);
+        btn_ProfilePay = findViewById(R.id.btn_ProfilePay);
+        btn_ProfilePay.setOnClickListener(this);
 
         UserIdPay =findViewById(R.id.UserIdPay);
         UserNamePay = findViewById(R.id.UserNamePay);
@@ -48,7 +54,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 }else if (TextUtils.isEmpty(amount.getText().toString().trim())){
                     Toast.makeText(PaymentActivity.this," Amount is invalid", Toast.LENGTH_SHORT).show();
                 }else{
-                    payUsingUpi(" ", " ","TechnoHub Member  "+UserNamePay.getText().toString(), amount.getText().toString());
+                    payUsingUpi("Kartikey Rawat", "rawatcarry0@oksbi","TechnoHub Member  "+UserNamePay.getText().toString(), amount.getText().toString());
                 }
             }
 
@@ -195,4 +201,5 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
+
 }

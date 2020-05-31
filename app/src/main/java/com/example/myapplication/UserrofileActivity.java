@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -30,6 +32,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class UserrofileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,20 +44,47 @@ public class UserrofileActivity extends AppCompatActivity implements View.OnClic
     private Button btn_Logout;
     private TextView profileName,profileEmail,profileBranch,profileField;
 private String parseID;
+    private String username;
+    private String email;
+    private java.util.Date Date;
+    private static final int Pick_Image = 1;
+    private Uri ImageUri;
 
 
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userrofile);
 
-        profileImg =(CircularImageView)findViewById(R.id.profileImg);
+        profileName = findViewById(R.id.profileName);
+        profileEmail = findViewById(R.id.profileEmail);
+        profileBranch = findViewById(R.id.profileBranch);
+        profileField = findViewById(R.id.profileField);
+
+
+
+        ParseUser pUser= ParseUser.getCurrentUser();
+        if (pUser != null){
+             email = pUser.getEmail();
+             profileEmail.setText(email);
+             username = pUser.getUsername();
+             profileName.setText(username);
+             parseID = pUser.getObjectId();
+             profileField.setText(parseID);
+             Date = pUser.getCreatedAt();
+             profileBranch.setText(Date+"");
+        }
+
+
+
+        profileImg =findViewById(R.id.profileImg);
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSelectImageClick(v);
+                    openImageFromGallery();
 
             }
         });
@@ -67,86 +97,48 @@ private String parseID;
        profileField = findViewById(R.id.profileField);
        btn_HomeP.setOnClickListener(this);
        btn_ProfileP.setOnClickListener(this);
-       btn_PaymentP.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               moveTransitionToLayoutPay();
-           }
-       });
+       btn_PaymentP.setOnClickListener(this);
+       btn_Logout = findViewById(R.id.btn_Logout);
+       btn_Logout.setOnClickListener(this);
+
 
 
 
 
     }
-
-    public void onSelectImageClick(View view) {
-        CropImage.startPickImageActivity(this);
+    public void openImageFromGallery(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,Pick_Image);
     }
+
     @Override
-    @SuppressLint("NewApi")
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        // handle result of pick image chooser
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri imageUri = CropImage.getPickImageResultUri(this, data);
-
-            // For API >= 23 we need to check specifically that we have permissions to read external storage.
-            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
-                // request permissions and handle the result in onRequestPermissionsResult()
-                mCropImageUri = imageUri;
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-            } else {
-                // no permissions required or already grunted, can start crop image activity
-                startCropImageActivity(imageUri);
-            }
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                ((ImageButton) findViewById(R.id.profileImg)).setImageURI(result.getUri());
-                Toast.makeText(this, "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(this, "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
-            }
+        if(requestCode == Pick_Image && resultCode == RESULT_OK && data !=null && data.getData() !=null){
+            ImageUri = data.getData();
+            profileImg.setImageURI(ImageUri);
         }
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // required permissions granted, start crop image activity
-            startCropImageActivity(mCropImageUri);
-        } else {
-            Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * Start crop image activity for the given image.
-     */
-    private void startCropImageActivity(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setMultiTouchEnabled(true)
-                .start(this);
-    }
-
-
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_HomeP:
-
-              moveTransitionToLayout();
-
-                break;
+                moveTransitionToLayout();
+              break;
 
             case R.id.btn_ProfileP:
-                FancyToast.makeText(UserrofileActivity.this,"You are in Your Profile",FancyToast.INFO,FancyToast.LENGTH_LONG,true).show();
+                FancyToast.makeText(UserrofileActivity.this,"You are in Your Profile ",FancyToast.INFO,FancyToast.LENGTH_LONG,true).show();
+                break;
+            case R.id.btn_PaymentP:
+                moveTransitionToLayoutPay();
+                break;
+            case R.id.btn_Logout:
+                    moveToLogout();
+                    break;
+
 
         }
 
@@ -161,4 +153,26 @@ private String parseID;
         Intent intentP = new Intent(UserrofileActivity.this,PaymentActivity.class);
         startActivity(intentP);
     }
+    public void moveToLogout(){
+        AlertDialog.Builder mBuilderF = new AlertDialog.Builder(UserrofileActivity.this);
+        mBuilderF.setTitle("LogOut");
+        mBuilderF.setIcon(R.drawable.tech);
+        mBuilderF.setMessage("Do You want To Logout ?");
+        mBuilderF.setPositiveButton("LogOut", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ParseUser.getCurrentUser().logOut();
+                Intent intent= new Intent(UserrofileActivity.this,LogInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        mBuilderF.setNegativeButton("Cancel",null);
+        AlertDialog dialog = mBuilderF.create();
+        dialog.show();
+        dialog.setCancelable(false);
+
+
+    }
 }
+//Bipul Biswas nanditabiswas9009@oksbi

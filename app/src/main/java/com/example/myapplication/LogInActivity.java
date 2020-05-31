@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -46,6 +48,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
         LinkToSignU  = findViewById(R.id.LinkToSignU);
         LinkToSignU.setOnClickListener(this);
+        if(ParseUser.getCurrentUser() != null){
+            Intent intentMain = new Intent(LogInActivity.this,MainInterfaceActivity.class);
+            startActivity(intentMain);
+        }
     }
 
     @Override
@@ -67,13 +73,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void done(ParseUser user, ParseException e) {
                         if(e==null && user!=null){
-                            FancyToast.makeText(LogInActivity.this,user.getUsername()+"Welcome To TechnoWorld",
-                                    FancyToast.SUCCESS,FancyToast.LENGTH_LONG,true).show();
-                            Intent intentMain = new Intent(LogInActivity.this,MainInterfaceActivity.class);
-                            startActivity(intentMain);
+                            if(user.getBoolean("emailVerified")) {
+                                alertDisplayer("Login Successful", "Welcome, " + user.getUsername() + ";)", false);
+                            }else{
+                                ParseUser.logOut();
+                                alertDisplayer("Login Failed", "Please Verify Your Email First", true);
+                            }
                         }else{
-                              FancyToast.makeText(LogInActivity.this,e.getMessage(),FancyToast.ERROR,FancyToast.LENGTH_LONG,
-                                      true).show();
+                            ParseUser.logOut();
+                            alertDisplayer("Login Failed",e.getMessage() + " Please Retry", true);
                         }
                         progressDialog.setCancelable(false);
                         progressDialog.dismiss();
@@ -82,11 +90,39 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.LinkToSignU:
-                Intent intent = new Intent(LogInActivity.this,BasicDetilesActivity.class);
+                Intent intent = new Intent(LogInActivity.this,signupActivity.class);
                 startActivity(intent);
                 break;
         }}catch (Exception e){
             FancyToast.makeText(LogInActivity.this,e.getMessage(),FancyToast.ERROR,FancyToast.LENGTH_LONG,true).show();
         }
+    }
+    public void moveToSocialMedia(){
+        Intent intentMain = new Intent(LogInActivity.this,MainInterfaceActivity.class);
+        startActivity(intentMain);
+        finish();
+    }
+    public void onBackPressed() {
+        //do nothing
+
+    }
+    private void alertDisplayer(String title,String message,final boolean error){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LogInActivity.this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                if(!error){
+                    Intent intent = new Intent(LogInActivity.this,MainInterfaceActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK );
+                    startActivity(intent);
+                }
+            }
+        });
+        AlertDialog Ok = builder.create();
+        Ok.show();
+        Ok.setCancelable(false);
     }
 }

@@ -67,8 +67,9 @@ public class MainInterfaceActivity extends AppCompatActivity implements View.OnC
         Intent intent = new Intent (MainInterfaceActivity.this,UserrofileActivity.class);
         startActivity(intent);
     }
-    public  void moveTransitionToLayoutPay(){
+    public  void moveTransitionToLayoutPay( View v){
         Intent intentP = new Intent(MainInterfaceActivity.this,PaymentActivity.class);
         startActivity(intentP);
     }
+
 }

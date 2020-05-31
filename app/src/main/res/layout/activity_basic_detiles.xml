@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
@@ -70,7 +70,7 @@
         android:drawablePadding="10dp"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/InfoEmail"
@@ -87,7 +87,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/LoginEmailHint"
         android:inputType="textEmailAddress"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/txtInfoBranch"
@@ -102,12 +102,12 @@
         android:background="@drawable/edit_editview"
         android:drawableLeft="@drawable/ic_call"
         android:drawablePadding="10dp"
-        android:hint="@string/SignUpContact"
-        android:inputType="text|phone"
-        android:padding="10dp"
+        android:hint="Contact (6-digit)"
+        android:inputType="text|number"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
-        app:layout_constraintBottom_toTopOf="@+id/ProjectInfo"
+        app:layout_constraintBottom_toTopOf="@+id/edt_contact"
         app:layout_constraintEnd_toEndOf="@+id/txtInfoField"
         app:layout_constraintStart_toStartOf="@+id/txtInfoField"
         app:layout_constraintTop_toBottomOf="@+id/txtInfoField" />
@@ -121,13 +121,13 @@
         android:drawablePadding="10dp"
         android:hint="@string/LinkofTheProject"
         android:inputType="text"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintEnd_toEndOf="@+id/InfoContact"
-        app:layout_constraintStart_toStartOf="@+id/InfoContact"
-        app:layout_constraintTop_toBottomOf="@+id/InfoContact" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_contact"
+        app:layout_constraintStart_toStartOf="@+id/edt_contact"
+        app:layout_constraintTop_toBottomOf="@+id/edt_contact" />
 
     <TextView
         android:id="@+id/txtInfoBranch"
@@ -138,7 +138,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/SignUpBranch"
         android:inputType="textVisiblePassword"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/txtInfoSemester"
@@ -155,7 +155,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/SignUpSemester"
         android:inputType="textVisiblePassword"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/txtInfoField"
@@ -172,12 +172,28 @@
         android:drawablePadding="10dp"
         android:hint="@string/SignUpField"
         android:inputType="textVisiblePassword"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColor="#285C0D"
         android:textColorHint="#285C0D"
         app:layout_constraintBottom_toTopOf="@+id/InfoContact"
         app:layout_constraintEnd_toEndOf="@+id/txtInfoSemester"
         app:layout_constraintStart_toStartOf="@+id/txtInfoSemester"
         app:layout_constraintTop_toBottomOf="@+id/txtInfoSemester" />
+
+    <EditText
+        android:id="@+id/edt_contact"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_editview"
+        android:drawableLeft="@drawable/ic_call"
+        android:ems="10"
+        android:hint="Contact (4-digit)"
+        android:inputType="number"
+        android:padding="5dp"
+        android:textColorHint="#285C0D"
+        app:layout_constraintBottom_toTopOf="@+id/ProjectInfo"
+        app:layout_constraintEnd_toEndOf="@+id/InfoContact"
+        app:layout_constraintStart_toStartOf="@+id/InfoContact"
+        app:layout_constraintTop_toBottomOf="@+id/InfoContact" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
